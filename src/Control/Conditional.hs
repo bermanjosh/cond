@@ -33,10 +33,6 @@ module Control.Conditional
          -- 
          -- > t <<| p |>> f
        , (|>>), (<<|)
-         -- **Unicode variants
-         -- |Intended to resemble the notation used in Tony Hoare's 
-         -- Unified Theories of Programming.
-       , (⊳), (⊲)
          -- *Generalized monadic conditionals
        , guard, guardM, when, whenM, unless, unlessM, 
        ) where
@@ -48,7 +44,7 @@ import Data.Monoid
 import Data.Maybe
 import Prelude hiding ((.), id, (&&), (||), not)
 
-infixr  0 <|, |>, ⊳, ⊲, ?, <<|, |>>
+infixr  0 <|, |>, ?, <<|, |>>
 infixr  1 ??
 infixr  2 <||>
 infixr  3 <&&>
@@ -270,11 +266,3 @@ p |>> v = ifM p (return Nothing) (liftM Just v)
 (<<|) :: Monad m => m a -> m (Maybe a) -> m a
 v <<| mv = liftM2 fromMaybe v mv
 {-# INLINE (<<|) #-}
-
--- |Unicode rebinding of '<|'. 
-(⊲) :: a -> Maybe a -> a
-(⊲) = (<|)
-
--- |Unicode rebinding of '|>'.
-(⊳) :: ToBool bool => bool -> a -> Maybe a
-(⊳) = (|>)
